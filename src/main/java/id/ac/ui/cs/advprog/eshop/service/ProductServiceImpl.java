@@ -24,6 +24,8 @@ public class ProductServiceImpl implements  ProductService{
         productIterator.forEachRemaining((allProduct::add));
         return allProduct;
     }
+    @Override
+    public void deleteProductById(String id){
 
     @Override
     public void save(Product product){
@@ -37,6 +39,10 @@ public class ProductServiceImpl implements  ProductService{
         while (productIterator.hasNext()){
             Product product = productIterator.next();
             if (product.getProductId().equals(id)){
+                productIterator.remove();
+                break;
+            }
+        }
                 return product;
             }
         }
