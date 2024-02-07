@@ -29,7 +29,6 @@ public class ProductRepository
         }
         throw new IllegalArgumentException("Product with id " + id + " not found");
     }
-    // mengupdate produk
     public void save(Product updatedProduct) {
         String id = updatedProduct.getProductId();
         for (int i = 0; i < productData.size(); i++) {
@@ -49,7 +48,6 @@ public class ProductRepository
                 return;
             }
         }
-
         throw new IllegalArgumentException("Product with id " + id + " not found");
     }
 }

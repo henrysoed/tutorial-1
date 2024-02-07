@@ -64,21 +64,21 @@ class ProductRepositoryTest {
 
         // Make new product
         Product product = new Product();
-        product.setProductId("abcde");
-        product.setProductName("Nanas");
+        product.setProductId("stringtest");
+        product.setProductName("Pachil");
         product.setProductQuantity(10);
         productRepository.create(product);
 
         // Change the name & quantity of product
-        product = productRepository.findById("abcde");
-        product.setProductName("Nanas busuk");
+        product = productRepository.findById("stringtest");
+        product.setProductName("Pachil baru");
         product.setProductQuantity(8);
         productRepository.save(product);
 
         // Verify
-        product = productRepository.findById("abcde");
-        assertEquals(product.getProductId(), "abcde");
-        assertEquals(product.getProductName(), "Nanas busuk");
+        product = productRepository.findById("stringtest");
+        assertEquals(product.getProductId(), "stringtest");
+        assertEquals(product.getProductName(), "Pachil baru");
         assertEquals(product.getProductQuantity(), 8);
     }
 
@@ -86,18 +86,18 @@ class ProductRepositoryTest {
     void testDelete(){
         // Make new product
         Product product = new Product();
-        product.setProductId("abcde");
-        product.setProductName("Nanas");
+        product.setProductId("stringtest");
+        product.setProductName("Pachil");
         product.setProductQuantity(10);
         productRepository.create(product);
 
         // Delete product
-        productRepository.deleteProductById("abcde");
+        productRepository.deleteProductById("stringtest");
 
         // Verify
         Iterator<Product> productIterator = productRepository.findAll();
         while (productIterator.hasNext()){
-            assertNotEquals(productIterator.next().getProductId(), "abcde");
+            assertNotEquals(productIterator.next().getProductId(), "stringtest");
         }
 
     }

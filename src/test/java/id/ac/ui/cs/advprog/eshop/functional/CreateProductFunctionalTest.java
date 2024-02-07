@@ -42,11 +42,9 @@ class CreateProductFunctionalTest {
         inputField.clear();
         inputField.sendKeys("123");
 
-        // submit
         WebElement nameInput = driver.findElement(By.id("submit"));
         nameInput.click();
 
-        // Cek apakah berhasil tersimpan
         WebElement firstProduct = driver.findElement(By.className("productName"));
         assertEquals(firstProduct.getText(), "Bambang Pacil");
     }
