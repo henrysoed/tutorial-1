@@ -22,7 +22,6 @@ public class ProductRepository
 
         while (productIterator.hasNext()){
             Product product = productIterator.next();
-            System.out.println(product.getProductId());
             if (product.getProductId().equals(id)){
                 return product;
             }
