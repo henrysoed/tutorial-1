@@ -5,16 +5,20 @@ plugins {
     id("io.spring.dependency-management") version "1.1.4"
     id("org.sonarqube") version "4.4.1.3373"
 }
+
 group = "id.ac.ui.cs.advprog"
 version = "0.0.1-SNAPSHOT"
+
 java {
     sourceCompatibility = JavaVersion.VERSION_21
 }
+
 configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
     }
 }
+
 repositories {
     mavenCentral()
 }
@@ -39,43 +43,41 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
 }
 
-sonar {
-    properties {
-        property("sonar.projectKey", "henrysoed_tutorial-1")
-        property("sonar.organization", "henrysoed")
-        property("sonar.host.url", "https://sonarcloud.io")
-    }
-}
-
-tasks.register<Test>("unitTest"){
+tasks.register<Test>("unitTest") {
     description = "Runs unit tests."
     group = "verification"
 
-    filter{
+    filter {
         excludeTestsMatching("*FunctionalTest")
     }
 }
 
-tasks.register<Test>("functionalTest"){
+tasks.register<Test>("functionalTest") {
     description = "Runs functional tests."
     group = "verification"
 
-    filter{
+    filter {
         includeTestsMatching("*FunctionalTest")
     }
 }
 
-tasks.withType<Test>().configureEach{
+tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 }
 
-tasks.test{
-    filter{
+tasks.test {
+    filter {
         excludeTestsMatching("*FunctionalTest")
     }
+
     finalizedBy(tasks.jacocoTestReport)
 }
 
-tasks.jacocoTestReport{
+tasks.jacocoTestReport {
     dependsOn(tasks.test)
+
+    reports {
+        html.required = true
+        xml.required = true
+    }
 }
