@@ -1,3 +1,5 @@
+link : https://eshop-henrysoed.koyeb.app/
+
 # Tutorial-2
 
 ### 1. List Code Quality Issues dan Strategi:
@@ -27,6 +29,9 @@
 #### c. Otomatisasi Workflows dalam Siklus Pengembangan Perangkat Lunak:
 + Workflows yang diimplementasikan membentuk proses otomatis dalam Siklus Pengembangan Perangkat Lunak.
 + Proses CI/CD terintegrasi dengan lancar, dari pengujian otomatis dan pemeriksaan kualitas kode hingga penyebaran, meningkatkan efisiensi siklus pengembangan.
+
+### Bonus
+![Alt text](image/code_coverage.jpg)
 
 ----
 # Tutorial-1
