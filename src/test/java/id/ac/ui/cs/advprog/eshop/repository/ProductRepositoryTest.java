@@ -6,10 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import java.util.Iterator;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class ProductRepositoryTest {
@@ -28,7 +26,6 @@ class ProductRepositoryTest {
         Iterator<Product> productIterator = productRepository.findAll();
         assertTrue(productIterator.hasNext());
         Product savedProduct = productIterator.next();
-
         assertEquals(product.getProductId(), savedProduct.getProductId());
         assertEquals(product.getProductName(),savedProduct.getProductName());
         assertEquals(product.getProductQuantity(),savedProduct.getProductQuantity());
@@ -58,47 +55,84 @@ class ProductRepositoryTest {
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
     }
-
     @Test
-    void testEdit(){
-
+    void testSuccessfulEdit(){
         // Make new product
         Product product = new Product();
-        product.setProductId("stringtest");
+        product.setProductId("abcde");
         product.setProductName("Pachil");
         product.setProductQuantity(10);
         productRepository.create(product);
-
         // Change the name & quantity of product
-        product = productRepository.findById("stringtest");
-        product.setProductName("Pachil baru");
+        product = productRepository.findById("abcde");
+        product.setProductName("Pachil Baru");
         product.setProductQuantity(8);
         productRepository.save(product);
-
         // Verify
-        product = productRepository.findById("stringtest");
-        assertEquals(product.getProductId(), "stringtest");
-        assertEquals(product.getProductName(), "Pachil baru");
+        product = productRepository.findById("abcde");
+        assertEquals(product.getProductId(), "abcde");
+        assertEquals(product.getProductName(), "Pachil Baru");
         assertEquals(product.getProductQuantity(), 8);
     }
 
     @Test
-    void testDelete(){
+    void testFailedEdit(){
+
         // Make new product
         Product product = new Product();
-        product.setProductId("stringtest");
+        product.setProductId("abcde");
         product.setProductName("Pachil");
         product.setProductQuantity(10);
         productRepository.create(product);
 
-        // Delete product
-        productRepository.deleteProductById("stringtest");
+        assertThrows(IllegalArgumentException.class, () -> productRepository.findById("random id"));
 
+        assertDoesNotThrow(() -> productRepository.findById("abcde"));
+
+        // Change the name & quantity of product
+        product = productRepository.findById("abcde");
+        product.setProductName("Pachil Baru");
+        product.setProductQuantity(8);
+        productRepository.save(product);
+
+        // Make product that is not saved
+        product = new Product();
+        product.setProductId("x");
+        product.setProductName("x");
+        product.setProductQuantity(1);
+
+        Product finalProduct = product;
+        assertThrows(IllegalArgumentException.class, () -> productRepository.save(finalProduct));
+    }
+
+    @Test
+    void testSuccessfulDelete(){
+        // Make new product
+        Product product = new Product();
+        product.setProductId("abcde");
+        product.setProductName("Pachil");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+        // Delete product
+        productRepository.deleteProductById("abcde");
         // Verify
         Iterator<Product> productIterator = productRepository.findAll();
         while (productIterator.hasNext()){
-            assertNotEquals(productIterator.next().getProductId(), "stringtest");
+            assertNotEquals(productIterator.next().getProductId(), "abcde");
         }
-
+    }
+    @Test
+    void testFailedDelete(){
+        // Make new product
+        Product product = new Product();
+        product.setProductId("abcde");
+        product.setProductName("Pachil");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+        // Delete product with unknown id
+        assertThrows(IllegalArgumentException.class, () -> productRepository.deleteProductById("randomId"));
+        // Make sure the product still there
+        String id = productRepository.findAll().next().getProductId();
+        assertEquals(id, "abcde");
     }
 }
