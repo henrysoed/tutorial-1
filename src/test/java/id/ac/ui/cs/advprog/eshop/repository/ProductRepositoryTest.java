@@ -60,18 +60,18 @@ class ProductRepositoryTest {
         // Make new product
         Product product = new Product();
         product.setProductId("abcde");
-        product.setProductName("Nanas");
+        product.setProductName("Pachil");
         product.setProductQuantity(10);
         productRepository.create(product);
         // Change the name & quantity of product
         product = productRepository.findById("abcde");
-        product.setProductName("Nanas busuk");
+        product.setProductName("Pachil Baru");
         product.setProductQuantity(8);
         productRepository.save(product);
         // Verify
         product = productRepository.findById("abcde");
         assertEquals(product.getProductId(), "abcde");
-        assertEquals(product.getProductName(), "Nanas busuk");
+        assertEquals(product.getProductName(), "Pachil Baru");
         assertEquals(product.getProductQuantity(), 8);
     }
 
@@ -81,7 +81,7 @@ class ProductRepositoryTest {
         // Make new product
         Product product = new Product();
         product.setProductId("abcde");
-        product.setProductName("Nanas");
+        product.setProductName("Pachil");
         product.setProductQuantity(10);
         productRepository.create(product);
 
@@ -91,7 +91,7 @@ class ProductRepositoryTest {
 
         // Change the name & quantity of product
         product = productRepository.findById("abcde");
-        product.setProductName("Nanas busuk");
+        product.setProductName("Pachil Baru");
         product.setProductQuantity(8);
         productRepository.save(product);
 
@@ -110,7 +110,7 @@ class ProductRepositoryTest {
         // Make new product
         Product product = new Product();
         product.setProductId("abcde");
-        product.setProductName("Nanas");
+        product.setProductName("Pachil");
         product.setProductQuantity(10);
         productRepository.create(product);
         // Delete product
@@ -126,7 +126,7 @@ class ProductRepositoryTest {
         // Make new product
         Product product = new Product();
         product.setProductId("abcde");
-        product.setProductName("Nanas");
+        product.setProductName("Pachil");
         product.setProductQuantity(10);
         productRepository.create(product);
         // Delete product with unknown id

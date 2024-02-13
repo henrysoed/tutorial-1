@@ -1,27 +1,16 @@
 package id.ac.ui.cs.advprog.eshop.service;
+
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(MockitoExtension.class)
-public class ProductServiceTest {
-
-    //@InjectMocks
-    //ProductRepository productRepository;
+class ProductServiceTest {
     @InjectMocks
     ProductServiceImpl service;
-
-
-//    @BeforeEach
-//    public void init() {
-//        MockitoAnnotations.openMocks(this);
-//    }
 
     @Test
     void testCreateProduct() {
@@ -29,13 +18,11 @@ public class ProductServiceTest {
             Product product = new Product();
             product.setProductName(String.valueOf(i+10));
             product.setProductQuantity(i+20);
-
-
             service.create(product);
         }
 
+        // Check the product
         List<Product> productList = service.findAll();
-
         for (int i = 0; i < 5;i++){
             Product product = productList.get(i);
 
@@ -44,47 +31,50 @@ public class ProductServiceTest {
             assertEquals(product.getProductQuantity(), i+20);
         }
     }
-//
-//    @Test
-//    void testSaveProduct(){
-//        for (int i = 0; i < 5;i++){
-//            Product product = new Product();
-//            product.setProductId("XXX");
-//            product.setProductName("XXX");
-//            product.setProductQuantity(1);
-//        }
-//    }
+    @Test
+    void testFindProduct(){
+        Product product = new Product();
+        product.setProductName("PachilLama");
+        product.setProductQuantity(10);
+        service.create(product);
 
-//    @Test
-//    void testCreateOrSaveEmployee() {
-//        Employee employee = new Employee("Lokesh", "Gupta");
-//
-//        service.save(employee);
-//
-//        verify(dao, times(1)).save(employee);
-//    }
+        // Find the product
+        Product foundProduct =  service.findById("1");
+        assertEquals(foundProduct.getProductName(), "PachilLama");
 
+    }
 
-//    @Test
-//    void testFindAllEmployees() {
-//        List<Employee> list = new ArrayList<Employee>();
-//        Employee empOne = new Employee("John", "John");
-//        Employee empTwo = new Employee("Alex", "kolenchiski");
-//        Employee empThree = new Employee("Steve", "Waugh");
-//
-//        list.add(empOne);
-//        list.add(empTwo);
-//        list.add(empThree);
-//
-//        when(repo.findAll()).thenReturn(list);
-//
-//        //test
-//        List<Employee> empList = service.findAll();
-//
-//        assertEquals(3, empList.size());
-//        verify(dao, times(1)).findAll();
-//    }
+    @Test
+    void testSaveProduct(){
+        Product product = new Product();
+        product.setProductName("PachilLama");
+        product.setProductQuantity(10);
+        service.create(product);
 
+        // Update product
+        product.setProductName("PachilBaru");
+        product.setProductQuantity(15);
+        service.save(product);
 
+        // Check
+        Product foundProduct =  service.findById("1");
+        assertEquals(foundProduct.getProductName(), "PachilBaru");
+        assertEquals(foundProduct.getProductQuantity(), 15);
 
+    }
+
+    @Test
+    void testDeleteProduct(){
+        Product product = new Product();
+        product.setProductName("PachilLama");
+        product.setProductQuantity(12);
+        service.create(product);
+
+        // Delete product
+        service.deleteProductById(product.getProductId());
+
+        // Check
+        assertThrows(IllegalArgumentException.class, () -> service.findById("1"));
+
+    }
 }
