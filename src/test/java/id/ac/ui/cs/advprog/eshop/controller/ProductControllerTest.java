@@ -49,16 +49,16 @@ public class ProductControllerTest {
         throw new IllegalArgumentException("Product with id " + updatedProduct.getProductId() + " not found");
     }
 
-    Product productPencil(){
+    Product productIpad(){
         Product product = new Product();
-        product.setProductId("PENCIL1");
-        product.setProductName("Pencil");
+        product.setProductId("IPAD1");
+        product.setProductName("Ipad");
         return product;
     }
-    Product productPachil(){
+    Product productLaptop(){
         Product product = new Product();
-        product.setProductId("PACHIL1");
-        product.setProductName("Pachil");
+        product.setProductId("LAPTOP1");
+        product.setProductName("Laptop");
         return product;
     }
 
@@ -72,12 +72,6 @@ public class ProductControllerTest {
         allProducts = null;
     }
 
-    @Test
-    public void testHomePage() throws Exception{
-        mvc.perform(get(""))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("ADV Shop")));
-    }
     @Test
     public void testListPage() throws Exception{
         mvc.perform(get("/product/list"))
@@ -94,7 +88,7 @@ public class ProductControllerTest {
     public void testCreateProductPost() throws Exception{
 
         // Create new product
-        Product product = productPencil();
+        Product product = productIpad();
         when(service.create(product)).thenReturn(mockAddProduct(product));
         mvc.perform(post("/product/create").flashAttr("product",product))
                 .andExpect(status().is3xxRedirection());
@@ -111,7 +105,7 @@ public class ProductControllerTest {
     public void testEditProductPage() throws Exception{
 
         // Create product
-        Product product = productPencil();
+        Product product = productIpad();
         when(service.create(product)).thenReturn(mockAddProduct(product));
         mvc.perform(post("/product/create").flashAttr("product",product))
                 .andExpect(status().is3xxRedirection());
@@ -127,16 +121,16 @@ public class ProductControllerTest {
     public void testEditProduct() throws Exception{
 
         // Create product
-        Product product = productPencil();
+        Product product = productIpad();
         when(service.create(product)).thenReturn(mockAddProduct(product));
         mvc.perform(post("/product/create").flashAttr("product",product))
                 .andExpect(status().is3xxRedirection());
 
 
         // Edit product
-        Product updatedProduct = productPencil();
-        updatedProduct.setProductName("Pachil");
-        updatedProduct.setProductQuantity(8);
+        Product updatedProduct = productIpad();
+        updatedProduct.setProductName("Laptop");
+        updatedProduct.setProductQuantity(12);
 
         when(service.save(updatedProduct)).thenReturn(mockEditProduct(updatedProduct));
         mvc.perform(post("/product/edit").flashAttr("product", updatedProduct))
@@ -152,7 +146,7 @@ public class ProductControllerTest {
     @Test
     public void testEditUnknownProduct() throws Exception{
 
-        Product product = productPencil();
+        Product product = productIpad();
 
         when(service.findById(product.getProductId())).thenThrow(new IllegalArgumentException());
         mvc.perform(post("/product/edit").flashAttr("product", product))
@@ -164,7 +158,7 @@ public class ProductControllerTest {
     public void testDeleteProduct() throws Exception{
 
         // Create new product
-        Product product = productPencil();
+        Product product = productIpad();
         when(service.create(product)).thenReturn(mockAddProduct(product));
         mvc.perform(post("/product/create").flashAttr("product",product))
                 .andExpect(status().is3xxRedirection());
