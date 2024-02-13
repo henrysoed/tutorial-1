@@ -1,3 +1,34 @@
+# Tutorial-2
+
+### 1. List Code Quality Issues dan Strategi:
+#### a. Merubah Nama Fungsi yang Kurang Baik
++ Issue: Beberapa fungsi menggunakan snake_case untuk penamaan, padahal Java best practices merekomendasikan camelCase.
++ Strategi: Merubah semua metode yang menggunakan snake_case menjadi camelCase untuk konsistensi dan sesuai dengan konvensi penamaan Java.
+
+#### b. Menghapus Import yang Tidak Diperlukan
++ Issue: Beberapa import tidak digunakan dalam kode.
++ Strategi: Menghapus import yang tidak terpakai untuk membersihkan kode dan meningkatkan keterbacaan.
+
+#### c. Menghapus public access modifier pada interface
++ Issue: Beberapa interface memiliki public access modifier yang tidak perlu.
++ Strategi: Menghapus public access modifier dari interface, karena secara default sudah public.
+
+### 2. Implementasi Saat Ini Memenuhi Definisi CI/CD:
+
+#### a. Automasi CI/CD dengan GitHub Workflows
++ Implementasi saat ini menggunakan GitHub Workflows untuk otomatisasi proses CI/CD.
++ Pengujian otomatis dan pemindaian kode dipicu setiap kali ada push ke repositori, memastikan integrasi berkelanjutan.
++ Penyebaran otomatis ke PaaS Koyeb dan pemeriksaan keamanan kode dilakukan setelah merge berhasil ke branch utama, memenuhi kriteria untuk penyebaran berkelanjutan.
+
+#### b. GitHub Actions untuk Kualitas Kode:
++ Workflows CI mencakup tindakan untuk pemeriksaan kualitas kode seperti PMD dan SonarCloud, memastikan bahwa kode memenuhi standar kualitas sebelum diterapkan.
++ Integrasi berkelanjutan melibatkan serangkaian uji dan pemindaian, memberikan kepercayaan terhadap kualitas kode sebelum beralih ke fase penyebaran.
+
+#### c. Otomatisasi Workflows dalam Siklus Pengembangan Perangkat Lunak:
++ Workflows yang diimplementasikan membentuk proses otomatis dalam Siklus Pengembangan Perangkat Lunak.
++ Proses CI/CD terintegrasi dengan lancar, dari pengujian otomatis dan pemeriksaan kualitas kode hingga penyebaran, meningkatkan efisiensi siklus pengembangan.
+
+----
 # Tutorial-1
 ## Reflection 1
 ### Implementasi prinsip Clean Code dan Secure Coding
@@ -36,3 +67,4 @@
 2. What do you think about the cleanliness of the code of the new functional test suite? Will the new code reduce the code quality?
 
    Menurut saya, perlu diperhatikan kebersihan kode saat pembuatan functional test suite baru. Hal ini dapat membantu developer dalam memelihara dan memaintain kode. Selain itu perlu juga diperhatikan potensi duplikasi kode dengan functional test suites sebelumnya. Hal ini dapat mengurangi kualitas kode karena tidak menggunakan prinsip dari clean code yang menyusahkan developer untuk memaintain kode.
+
