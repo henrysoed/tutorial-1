@@ -1,5 +1,46 @@
 link : https://eshop-henrysoed.koyeb.app/
 
+# Tutorial-3
+
+## Reflection 1
+### Principle yang saya terapkan pada tutorial 3:
+1. Single Responsibility Principle (SRP)
+   Sebuah kelas seharusnya hanya memiliki satu tanggung jawab. Pada tutorial ini, saya memisahkan function CarController dan ProductController sehingga masing-masing modul pada Controller memiliki satu tanggung jawab saja sehingga dapat meningkatkan readability, maintainability, dan testability pada program tersebut
+2. Dependency Inversion Principle (DIP)
+   Prinsip ini mendorong penggunaan injeksi dependensi dan inversi kontrol untuk mencapai desain yang lebih fleksibel dan terlepas. Pada tutorial ini, saya mengubah dependency concrete class pada CarController menjadi interface pada CarService.
+3. Liskov Substitution Principle (LSP)
+   Prinsip ini memastikan bahwa objek dari kelas induk seharusnya dapat digantikan dengan objek dari kelas turunannya tanpa memengaruhi fungsionalitas program. Pada tutorial ini saya menghilangkan extends ProductController pada CarController
+
+## Reflection 2
+### Keuntungan menggunakan SOLID Principle pada tutorial 3:
+1. Single Responsibility Principle (SRP):
++ Keuntungan: Meningkatkan readability, maintainability, dan testability pada program.
+  Contoh: Dengan memisahkan fungsi CarController dan ProductController, setiap modul pada Controller sekarang memiliki satu tanggung jawab saja. Misalnya, CarController hanya menangani logika terkait mobil, sementara ProductController hanya menangani produk lainnya.
+
+2. Dependency Inversion Principle (DIP):
++ Keuntungan: Desain yang lebih fleksibel dan terlepas dengan menggunakan injeksi dependensi dan inversi kontrol.
+  Contoh: Mengubah dependency concrete class pada CarController menjadi interface pada CarService membuat CarController tidak lagi bergantung pada implementasi konkret, tetapi pada abstraksi. Ini mempermudah penggantian implementasi CarService tanpa memengaruhi CarController.
+
+3. Liskov Substitution Principle (LSP):
+   +Keuntungan: Memastikan bahwa objek kelas turunan dapat digantikan tanpa memengaruhi fungsionalitas program.
+   Contoh: Menghilangkan extends ProductController pada CarController memastikan bahwa CarController masih dapat digunakan seperti yang diharapkan, tanpa memerlukan fitur dari kelas turunan ProductController. Ini memperkuat ide bahwa kelas-kelas harus dapat digantikan dengan kelas turunannya tanpa menyebabkan perubahan pada program.
+
+## Reflection 3
+### Kerugian tidak menggunakan SOLID Principle pada tutorial 3:
+1. Tidak Menggunakan Single Responsibility Principle (SRP):
++ Kerugian: Menyimpan lebih dari satu tanggung jawab dalam satu kelas dapat mengakibatkan kesulitan dalam pemahaman kode.
+  Contoh: Jika CarController dan ProductController tetap memiliki banyak tanggung jawab, maka sulit untuk memahami dan memodifikasi logika terkait mobil dan produk secara terpisah. Perubahan pada satu tanggung jawab dapat memengaruhi yang lain, menyulitkan pemeliharaan.
+
+2. Tidak Menggunakan Dependency Inversion Principle (DIP):
++ Kerugian: Ketergantungan pada implementasi konkret daripada abstraksi dapat menyulitkan perubahan dan pengujian.
+  Contoh: Jika CarController bergantung langsung pada implementasi konkret CarService, maka perubahan pada CarService atau pengujian unit CarController dapat menjadi sulit. Penggunaan abstraksi dan injeksi dependensi mempermudah penggantian implementasi dan pengujian yang terisolasi.
+
+3. Tidak Menggunakan Liskov Substitution Principle (LSP):
++ Kerugian: Tidak dapat menggantikan objek kelas induk dengan objek kelas turunan dapat menyebabkan perubahan yang tidak diinginkan pada fungsionalitas program.
+  Contoh: Jika CarController masih secara langsung menggantungkan diri pada fitur kelas turunan ProductController, maka perubahan pada ProductController dapat memengaruhi CarController secara tak terduga. Ini merugikan karena melanggar prinsip bahwa objek kelas turunan seharusnya dapat digunakan sebagai pengganti objek kelas induk tanpa merusak fungsionalitas.
+
+---
+
 # Tutorial-2
 
 ### 1. List Code Quality Issues dan Strategi:
