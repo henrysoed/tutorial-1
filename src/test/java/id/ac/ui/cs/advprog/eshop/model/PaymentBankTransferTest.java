@@ -1,22 +1,19 @@
 package id.ac.ui.cs.advprog.eshop.model;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-
 public class PaymentBankTransferTest {
     List<Product> products;
     List<Order> orders;
     List<Payment> payments;
-
     @BeforeEach
     void setUp() {
         products = new ArrayList<>();
@@ -25,13 +22,11 @@ public class PaymentBankTransferTest {
         product1.setProductQuantity(2);
         product1.setProductName("Sampo Cap Bambang");
         products.add(product1);
-
         Product product2 = new Product();
         product2.setProductId("a2c62328-4a37-4664-83c7-f32db8620155");
         product2.setProductQuantity(1);
         product2.setProductName("Sampo Cap Usep");
         products.add(product2);
-
         orders = new ArrayList<>();
         Order order1 = new Order("136522556-012a-4c07-b546-54eb1396d79b",
                 products, 1708560000L, "Safira Sudrajat");
@@ -43,18 +38,17 @@ public class PaymentBankTransferTest {
                 products, 1708570000L, "Bambang Sudrajat");
         orders.add(order3);
     }
-
     @Test
     void testCreatePaymentBankTransferSuccessful() {
         Map<String, String> paymentDataBankTransfer = new HashMap<>();
         paymentDataBankTransfer.put("bankName", "BNI");
         paymentDataBankTransfer.put("referenceCode", "0123456789");
 
-        Payment payment = new PaymentBankTransfer("ec556e96-10a5-4d47-a068-d45c6fca71c0", orders.get(0), "BANK", paymentDataBankTransfer);
+        Payment payment = new PaymentBankTransfer("ec556e96-10a5-4d47-a068-d45c6fca71c0", orders.get(0), PaymentMethod.BANK.getValue(), paymentDataBankTransfer);
         assertSame(orders.get(0), payment.getOrder());
         assertEquals(paymentDataBankTransfer, payment.getPaymentData());
         assertEquals("ec556e96-10a5-4d47-a068-d45c6fca71c0", payment.getId());
-        assertEquals("BANK", payment.getMethod());
+        assertEquals(PaymentMethod.BANK.getValue(), payment.getMethod());
     }
 
     @Test
@@ -64,14 +58,13 @@ public class PaymentBankTransferTest {
         paymentDataBankTransfer.put("referenceCode", "0123456789");
 
         PaymentBankTransfer paymentBankTransfer = new PaymentBankTransfer("ec556e96-10a5-4d47-a068-d45c6fca71c0",
-                orders.get(0), "BANK", paymentDataBankTransfer, PaymentStatus.SUCCESS.getValue());
+                orders.get(0), PaymentMethod.BANK.getValue(), paymentDataBankTransfer, PaymentStatus.SUCCESS.getValue());
         assertSame(orders.get(0), paymentBankTransfer.getOrder());
         assertEquals("ec556e96-10a5-4d47-a068-d45c6fca71c0", paymentBankTransfer.getId());
-        assertEquals("BANK", paymentBankTransfer.getMethod());
+        assertEquals(PaymentMethod.BANK.getValue(), paymentBankTransfer.getMethod());
         assertEquals(paymentDataBankTransfer, paymentBankTransfer.getPaymentData());
         assertEquals(PaymentStatus.SUCCESS.getValue(), paymentBankTransfer.getStatus());
     }
-
     @Test
     void testCreatePaymentFailedEmptyBankName() {
         Map<String, String> paymentDataBankTransfer = new HashMap<>();
@@ -80,7 +73,7 @@ public class PaymentBankTransferTest {
 
         assertThrows(IllegalArgumentException.class, ()-> {
             new PaymentBankTransfer("ec556e96-10a5-4d47-a068-d45c6fca71c0", orders.get(1),
-                    "BANK", paymentDataBankTransfer);
+                    PaymentMethod.BANK.getValue(), paymentDataBankTransfer);
         });
     }
 
@@ -92,7 +85,7 @@ public class PaymentBankTransferTest {
 
         assertThrows(IllegalArgumentException.class, ()-> {
             new PaymentBankTransfer("ec556e96-10a5-4d47-a068-d45c6fca71c0", orders.get(1),
-                    "BANK", paymentDataBankTransfer);
+                    PaymentMethod.BANK.getValue(), paymentDataBankTransfer);
         });
     }
 }
