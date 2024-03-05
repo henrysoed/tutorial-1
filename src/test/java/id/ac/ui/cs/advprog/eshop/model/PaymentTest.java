@@ -1,6 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,6 +38,16 @@ class PaymentTest {
             new Payment("e6e60d39-41fb-4ff0-8631-3491e483c180",
                     "", null, paymentData);
         });
+    }
+    @Test
+    void testContainsWithValidParam() {
+        assertTrue(PaymentMethod.contains("VOUCHER_CODE"));
+        assertTrue(PaymentMethod.contains("BANK_TRANSFER"));
+    }
+
+    @Test
+    void testContainsWithInvalidParam() {
+        assertFalse(PaymentMethod.contains("INVALID_CODE"));
     }
     @Test
     void testCreatePaymentVoucherPendingStatus() {
