@@ -1,22 +1,19 @@
 package id.ac.ui.cs.advprog.eshop.model;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-
 class PaymentVoucherCodeTest {
     List<Product> products;
     List<Order> orders;
     List<Payment> payments;
-
     @BeforeEach
     void setUp() {
         products = new ArrayList<>();
@@ -25,13 +22,11 @@ class PaymentVoucherCodeTest {
         product1.setProductQuantity(2);
         product1.setProductName("Sampo Cap Bambang");
         products.add(product1);
-
         Product product2 = new Product();
         product2.setProductId("a2c62328-4a37-4664-83c7-f32db8620155");
         product2.setProductQuantity(1);
         product2.setProductName("Sampo Cap Usep");
         products.add(product2);
-
         orders = new ArrayList<>();
         Order order1 = new Order("136522556-012a-4c07-b546-54eb1396d79b",
                 products, 1708560000L, "Safira Sudrajat");
@@ -43,16 +38,15 @@ class PaymentVoucherCodeTest {
                 products, 1708570000L, "Bambang Sudrajat");
         orders.add(order3);
     }
-
     @Test
     void testCreatePaymentSuccessfulVoucher() {
         Map<String, String> paymentDataVoucher = new HashMap<>();
         paymentDataVoucher.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment payment = new PaymentVoucherCode("4074c620-013b-4414-b085-08f7b089408c", orders.get(1), "VOUCHER", paymentDataVoucher);
+        Payment payment = new PaymentVoucherCode("4074c620-013b-4414-b085-08f7b089408c", orders.get(1), PaymentMethod.VOUCHER.getValue(), paymentDataVoucher);
         assertSame(orders.get(1), payment.getOrder());
         assertEquals("4074c620-013b-4414-b085-08f7b089408c", payment.getId());
-        assertEquals("VOUCHER", payment.getMethod());
+        assertEquals(PaymentMethod.VOUCHER.getValue(), payment.getMethod());
         assertEquals(paymentDataVoucher, payment.getPaymentData());
     }
 
@@ -62,14 +56,13 @@ class PaymentVoucherCodeTest {
         paymentDataVoucher.put("voucherCode", "ESHOP1234ABC5678");
 
         PaymentVoucherCode paymentVoucherCode = new PaymentVoucherCode("ec556e96-10a5-4d47-a068-d45c6fca71c0",
-                orders.get(0), "VOUCHER", paymentDataVoucher, PaymentStatus.SUCCESS.getValue());
+                orders.get(0), PaymentMethod.VOUCHER.getValue(), paymentDataVoucher, PaymentStatus.SUCCESS.getValue());
         assertSame(orders.get(0), paymentVoucherCode.getOrder());
         assertEquals("ec556e96-10a5-4d47-a068-d45c6fca71c0", paymentVoucherCode.getId());
-        assertEquals("VOUCHER", paymentVoucherCode.getMethod());
+        assertEquals(PaymentMethod.VOUCHER.getValue(), paymentVoucherCode.getMethod());
         assertEquals(paymentDataVoucher, paymentVoucherCode.getPaymentData());
         assertEquals(PaymentStatus.SUCCESS.getValue(), paymentVoucherCode.getStatus());
     }
-
     @Test
     void testCreatePaymentVoucherFailed16Length() {
         Map<String, String> paymentDataVoucher = new HashMap<>();
@@ -77,7 +70,7 @@ class PaymentVoucherCodeTest {
 
         assertThrows(IllegalArgumentException.class, ()-> {
             new PaymentVoucherCode("ec556e96-10a5-4d47-a068-d45c6fca71c0",orders.get(1),
-                    "VOUCHER", paymentDataVoucher);
+                    PaymentMethod.VOUCHER.getValue(), paymentDataVoucher);
         });
     }
 
@@ -88,7 +81,7 @@ class PaymentVoucherCodeTest {
 
         assertThrows(IllegalArgumentException.class, ()-> {
             new PaymentVoucherCode("ec556e96-10a5-4d47-a068-d45c6fca71c0",orders.get(1),
-                    "VOUCHER", paymentDataVoucher);
+                    PaymentMethod.VOUCHER.getValue(), paymentDataVoucher);
         });
     }
 
@@ -99,7 +92,7 @@ class PaymentVoucherCodeTest {
 
         assertThrows(IllegalArgumentException.class, ()-> {
             new PaymentVoucherCode("ec556e96-10a5-4d47-a068-d45c6fca71c0",orders.get(1),
-                    "VOUCHER", paymentDataVoucher);
+                    PaymentMethod.VOUCHER.getValue(), paymentDataVoucher);
         });
     }
 }
