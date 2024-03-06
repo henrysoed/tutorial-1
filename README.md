@@ -1,5 +1,16 @@
 link : https://eshop-henrysoed.koyeb.app/
 
+# Tutorial-4
+
+## Reflection 1
+### 1. Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not.
+Berdasarkan pertanyaan reflektif yang diajukan oleh Percival (2017) dalam "Principles and Best Practice of Testing," saya meyakini bahwa prosedur TDD sangat berguna dan memberikan sejumlah keuntungan signifikan. Melalui TDD, saya dapat meningkatkan kebenaran (correctness), kemudahan perawatan (maintainability), dan efisiensi alur kerja. Meskipun pada awalnya saya mengalami kesulitan dalam merancang tes sebelum mengembangkan kelas sebenarnya, namun TDD memudahkan proses pembuatan kode yang lebih aman dan memungkinkan refactoring yang lebih mudah, karena setiap perubahan dapat segera diuji. Untuk masa depan, saya menyadari pentingnya mengembangkan tes yang mengevaluasi interaksi antar fitur untuk memastikan keakuratan kode. Sebagai contoh, menguji pembuatan, pembaruan, dan penghapusan banyak produk secara bersamaan dapat meningkatkan keamanan dan memastikan semua komponen berinteraksi dengan baik.
+
+### 2. You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you create more tests.
+Menurut saya, penerapan prinsip F.I.R.S.T pada unit test di tutorial ini membuat saya yakin bahwa tes tersebut telah mematuhi prinsip tersebut. Setiap tes dirancang dengan efisien untuk mengevaluasi kode secara menyeluruh. Masing-masing tes menggunakan assertion untuk memverifikasi keakuratan output dan dirancang agar dapat dijalankan kembali, memungkinkan pengujian konsisten setiap kali ada modifikasi pada kode. Tes-tes tersebut juga mencakup semua happy path dan unhappy path, serta menguji semua kemungkinan kesalahan dan hasil yang mungkin terjadi. Oleh karena itu, saya percaya bahwa penerapan prinsip F.I.R.S.T pada unit test telah berhasil dan memberikan keamanan ekstra terhadap kualitas kode.
+
+---
+
 # Tutorial-3
 
 ## Reflection 1
