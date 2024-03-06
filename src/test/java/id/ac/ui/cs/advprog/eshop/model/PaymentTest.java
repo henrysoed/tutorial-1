@@ -12,6 +12,7 @@ class PaymentTest {
     Map<String, String> paymentData;
     List<Product> products;
     Order order;
+
     @BeforeEach
     void setup() {
         this.paymentData = new HashMap<>();
@@ -29,11 +30,13 @@ class PaymentTest {
         order = new Order("eb558e9f-1c39-460e-8860-71af6af63bd6",
                 products, 1708560000L, "Bambang Suryanto");
     }
+
     @Test
     void testContainsWithValidParam() {
         assertTrue(PaymentMethod.contains("VOUCHER_CODE"));
         assertTrue(PaymentMethod.contains("BANK_TRANSFER"));
     }
+
     @Test
     void testContainsWithInvalidParam() {
         assertFalse(PaymentMethod.contains("INVALID_CODE"));
@@ -46,6 +49,7 @@ class PaymentTest {
                     "", null, paymentData);
         });
     }
+
     @Test
     void testCreatePaymentVoucherPendingStatus() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
@@ -73,6 +77,7 @@ class PaymentTest {
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         paymentData.clear();
     }
+
     @Test
     void testCreatePaymentVoucherRejectedStatus() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
@@ -86,6 +91,7 @@ class PaymentTest {
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
         paymentData.clear();
     }
+
     @Test
     void testCreatePaymentVoucherInvalidStatus() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
@@ -96,6 +102,7 @@ class PaymentTest {
         });
         paymentData.clear();
     }
+
     @Test
     void testCreatePaymentVoucherNullStatus() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
@@ -106,6 +113,7 @@ class PaymentTest {
         });
         paymentData.clear();
     }
+
     @Test
     void testCreatePaymentBankTransferPendingStatus() {
         paymentData.put("bankName", "BNI");
@@ -120,6 +128,7 @@ class PaymentTest {
         assertEquals(PaymentStatus.PENDING.getValue(), payment.getStatus());
         paymentData.clear();
     }
+
     @Test
     void testCreatePaymentBankTransferSuccessStatus() {
         paymentData.put("bankName", "BNI");
@@ -134,6 +143,7 @@ class PaymentTest {
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         paymentData.clear();
     }
+
     @Test
     void testCreatePaymentBankTransferRejectedStatus() {
         paymentData.put("bankName", "BNI");
@@ -148,6 +158,7 @@ class PaymentTest {
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
         paymentData.clear();
     }
+
     @Test
     void testCreatePaymentBankTransferInvalidStatus() {
         paymentData.put("bankName", "BNI");
@@ -159,6 +170,7 @@ class PaymentTest {
         });
         paymentData.clear();
     }
+
     @Test
     void testCreatePaymentBankTransferNullStatus() {
         paymentData.put("bankName", "BNI");
@@ -170,6 +182,7 @@ class PaymentTest {
         });
         paymentData.clear();
     }
+
     @Test
     void testSetStatusPaymentVoucherToSuccess() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
@@ -180,6 +193,7 @@ class PaymentTest {
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         paymentData.clear();
     }
+
     @Test
     void testSetStatusPaymentVoucherToRejected() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
@@ -190,6 +204,7 @@ class PaymentTest {
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
         paymentData.clear();
     }
+
     @Test
     void testSetStatusPaymentVoucherToInvalidStatus() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
@@ -201,6 +216,7 @@ class PaymentTest {
         });
         paymentData.clear();
     }
+
     @Test
     void testSetStatusPaymentVoucherToNullStatus() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
@@ -212,6 +228,7 @@ class PaymentTest {
         });
         paymentData.clear();
     }
+
     @Test
     void testSetStatusPaymentBankTransferToSuccess() {
         paymentData.put("bankName", "BNI");
@@ -223,6 +240,7 @@ class PaymentTest {
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         paymentData.clear();
     }
+
     @Test
     void testSetStatusPaymentBankTransferToRejected() {
         paymentData.put("bankName", "BNI");
@@ -234,6 +252,7 @@ class PaymentTest {
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
         paymentData.clear();
     }
+
     @Test
     void testSetStatusPaymentBankTransferToInvalidStatus() {
         paymentData.put("bankName", "BNI");
@@ -246,6 +265,7 @@ class PaymentTest {
         });
         paymentData.clear();
     }
+
     @Test
     void testSetStatusPaymentBankTransferToNullStatus() {
         paymentData.put("bankName", "BNI");
@@ -257,5 +277,14 @@ class PaymentTest {
             payment.setStatus(null);
         });
         paymentData.clear();
+    }
+
+    @Test
+    void testSetPaymentDataWithUnsupportedMethod() {
+        paymentData.put("key", "value");
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Payment("e6e60d39-41fb-4ff0-8631-3491e483c180", "RAWR", order, paymentData);
+        });
     }
 }
